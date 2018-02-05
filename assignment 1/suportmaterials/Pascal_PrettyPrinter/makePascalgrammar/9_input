@@ -1,0 +1,16 @@
+program ReadInput;
+
+uses crt;
+ 
+var
+   i: Integer;
+   s: String;
+   c: Char;
+ 
+begin
+   Readln(i);
+   Readln(s);
+   c := ReadKey;
+end.
+
+

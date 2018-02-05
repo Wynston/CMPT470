@@ -1,0 +1,13 @@
+program Decisions;
+ 
+var
+   i: Integer;
+   b: Boolean;
+ 
+begin
+   Writeln('Enter a number');
+   Readln(i);
+   b := i > 5;
+end.
+
+

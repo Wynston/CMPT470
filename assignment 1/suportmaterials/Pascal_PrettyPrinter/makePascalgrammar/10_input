@@ -1,0 +1,13 @@
+program Variables;
+ 
+var
+   i: Integer;
+   s: String;
+begin
+   i := 24;
+   s := 'Hello';
+   Writeln(i);
+   Writeln(s,' world');
+end.
+
+

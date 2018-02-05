@@ -1,0 +1,12 @@
+program Colors;
+ 
+uses
+   crt;
+ 
+begin
+   TextBackground(Red);
+   Writeln('Hello');
+   TextColor(White);
+   ClrScr;
+end.
+

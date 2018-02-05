@@ -1,0 +1,16 @@
+program Loops;
+ 
+var
+   i: Integer;
+   s: String;
+ 
+begin
+   i := 0;
+   repeat
+      i := i + 1;
+      Write('Enter a number: ');
+      Readln(s);
+   until (i = 10) or (s = 0);
+end.
+
+

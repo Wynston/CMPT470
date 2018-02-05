@@ -1,0 +1,15 @@
+program Variables;
+ 
+var
+   i, j, k: Integer;
+   s: String;
+   b: Boolean;
+ 
+begin
+   i := -3;
+   j := 10 mod 3;
+   k := 9 div 3;
+   s := 'Hello ' + 'world';
+   b := True; 
+end.
+

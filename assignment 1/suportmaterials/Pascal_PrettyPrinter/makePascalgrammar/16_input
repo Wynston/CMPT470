@@ -1,0 +1,22 @@
+program Decisions;
+ 
+var
+   i: Integer;
+ 
+begin
+   Writeln('Enter a number');
+   Readln(i);
+   if i > 0 then
+      begin
+         if i > 10 then
+             Writeln('You entered ',i);
+         Writeln('It is a positive number');
+      end
+   else
+      begin
+        Writeln('another set of words');
+        Writeln('ta-da');
+      end;
+end.
+
+

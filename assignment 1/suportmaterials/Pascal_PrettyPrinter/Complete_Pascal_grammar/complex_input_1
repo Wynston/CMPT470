@@ -1,0 +1,31 @@
+{This is a comment about a complex condition program}
+program Complex1;
+ 
+var
+   i: Integer;
+   e,o: Integer;
+ 
+begin
+   Writeln('Enter a number');
+   Readln(i);
+   if i > 0 then
+      begin
+         if i > 10 then
+            begin
+                 Writeln('You entered ',i);
+                 e := 11;
+            end;
+         {This statement is not part of the (i>10) condition}
+         Writeln('It is a positive number');
+      end
+   else
+      begin
+        Writeln('another set of words');
+        Writeln('ta-da');
+        if i < -100 then
+            o := 100;
+        else
+            o := 10;
+      end;
+end.
+

@@ -1,0 +1,50 @@
+include "pascal.Grm"
+include "c.Grm"
+
+redefine program
+  [pascal_prog] | [c_prog]
+end redefine
+
+define pascal_prog
+        'program [id] '( [list formal] ') [NL]
+        [block]
+end define
+
+define c_prog
+        [type] [id] '( [list formal] ') [NL]
+        [block]
+end define
+
+redefine block
+   [startB] 
+      [repeat command]
+   [endB]
+end redefine
+
+redefine ifStatement
+   'if [condition] [opt 'then] [NL] [IN]
+        [command] [EX]
+end redefine
+
+define startB
+  'begin [NL] | '{ [NL]
+end define
+
+define endB
+   'end [NL] | '} [NL]
+end define
+
+redefine boolExpr
+	'=
+    |   '<=
+    |   '>=
+    |   '<
+    |   '>
+    |   '==
+end define
+
+redefine assignmentOpertator
+        ':=
+   |    '=
+end redefine
+

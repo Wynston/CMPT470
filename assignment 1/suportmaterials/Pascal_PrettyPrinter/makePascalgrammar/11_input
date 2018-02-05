@@ -1,0 +1,14 @@
+program Variables;
+ 
+const
+   pi: Real = 3.14;
+ 
+var
+   c, d: Real;
+ 
+begin
+   d := 5;
+   c := pi * d;
+end.
+
+

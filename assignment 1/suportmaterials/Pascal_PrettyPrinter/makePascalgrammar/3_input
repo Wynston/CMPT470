@@ -1,0 +1,12 @@
+program Hello;
+ 
+uses
+   crt;
+ 
+begin
+   ClrScr;
+   Write('Hello world');
+   Writeln('That\'s the way it goes');
+   Readln;
+end.
+

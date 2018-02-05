@@ -1,0 +1,14 @@
+program Coordinates;
+ 
+uses
+   crt;
+ 
+begin
+   Window(1,1,10,5);
+   GoToXY(10,5);
+   Writeln('Hello');
+   Sound(1000);
+   Delay(1000);
+   NoSound;
+end.
+

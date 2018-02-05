@@ -1,0 +1,92 @@
+% Part I.  Syntax specification
+
+define program
+	[type] [id] '( [list formal] ') [NL]
+	[block]
+end define
+
+define formal
+	[type] [id]
+end define
+
+define type
+	[id]
+end define
+
+define block
+        '{ [NL] [IN]
+        [repeat command] [EX]
+        '} [NL]
+end define 
+
+keys
+    'begin 'end 'const '=  '== ':= '; 'if 'then 'endIf '<= '>= 'case '->
+end keys
+
+compounds
+     '-> ':= '<= '>= '==
+end compounds
+
+define command
+        [assignment] [NL]
+    |   [declaration] [NL]
+    |   [ifStatement] [NL]
+    |   [block]
+end define
+
+define assignment
+        [id] [assignmentOpertator] [expression] ';
+end define
+
+define declaration
+        'const [type] [id] [assignmentOpertator] [number] ';
+end define
+
+define ifStatement
+        'if [condition]  [NL] [IN]
+        [command] [EX]
+end define
+
+define condition
+        [id] [boolExpr] [number]
+end define
+
+define assignmentOpertator
+	'=
+end define
+
+define boolExpr
+        '==
+    |   '<=
+    |   '>=
+    |   '<
+    |   '>
+end define
+
+define expression
+        [term]
+    |   [expression] [addop] [term]
+end define 
+                  
+define term
+        [primary]
+    |   [term] [mulop] [primary]
+end define 
+                  
+define primary
+        [number]
+    |   [id]
+    |   ( [expression] )
+end define 
+                  
+define addop
+        '+
+    |   '-
+end define 
+                  
+define mulop
+        '*
+    |   '/
+end define 
+
+

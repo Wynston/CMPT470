@@ -1,0 +1,14 @@
+{This is a comment statement about the program that prints "Hello world" and wait for the user to press enter.}
+
+program Hello;
+ 
+uses
+   crt;
+ 
+begin
+   ClrScr;
+   Write('Hello world');
+   Writeln('That\'s the way it goes');
+   Readln;
+end.
+

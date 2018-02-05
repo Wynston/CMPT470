@@ -1,0 +1,24 @@
+program Decisions;
+ 
+uses
+   crt;
+ 
+var
+   Choice: Char;
+ 
+begin
+   Writeln('Which on of these do you like?');
+   Writeln('a - Apple:');
+   Writeln('b - Banana:');
+   Writeln('c - Carrot:');
+   Choice := ReadKey;
+   case Choice of
+      'a': Writeln('You like apples');
+      'b': Writeln('You like bananas');
+      'c': Writeln('You like carrots');
+   else
+      Writeln('You made an invalid choice');
+   end;
+end.
+
+
