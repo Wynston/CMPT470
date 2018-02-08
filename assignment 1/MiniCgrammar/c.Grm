@@ -1,3 +1,8 @@
+%CMPT 470, Assignment1
+%Wynston Ramsay - WCR723
+%Darvin Zhang   - DDZ369
+%PrettyPrinter for C programs
+
 #pragma -comment
 
 % Grammar:
@@ -7,6 +12,103 @@ define program
 	[c_function]
 end define
 
+% ------------------------------------Configuration Data------------------------------------
+define include_statement
+	[SPOFF]'#'include'<[id]'.[id]'> [SPON] [NL]
+end define
+
+comments
+	/* */
+	//
+end comments
+
+tokens
+	id | "[&]\i*"
+end tokens
+
+define left_curly_bracket
+	'{ [opt comment] [NL]
+end define
+
+define right_curly_bracket
+	'} [opt comment] [NL]
+end define
+
+% ---------------------------------------Logic/Conditions---------------------------------------
+define condition
+	[boolean]
+	| [repeat multi_condition]
+end define
+
+define multi_condition
+	[opt '!] [opt '(] [id] [operator] [default_identifier] [opt ')] [opt and_or]
+end define
+
+define condition_expression
+	[if_statement]
+	| [if_statement] [else_statement]
+end define
+
+define and_or
+	'&[SPOFF]'&[SPON]
+	| '|[SPOFF]'|[SPON]
+end define
+
+define operator
+	'<
+	| '>
+	| '=[SPOFF]'=[SPON]
+	| '![SPOFF]'=[SPON]
+	| '<[SPOFF]'=[SPON]
+	| '>[SPOFF]'=[SPON]
+end define
+
+% -----------------------------------------Datatypes-----------------------------------------
+
+define number_or_id
+	[number]
+	| [id]
+end define
+
+define default_identifier
+	[id]
+	| [number]
+	| [stringlit]
+	| [charlit]
+end define
+
+define boolean
+	true
+	| false
+end define
+
+% -----------------------------------------Variables-----------------------------------------
+
+define variable_declaration
+	[id] [list id]; [opt comment] [NL]
+	| [id] [id] [id] = [number]; [opt comment] [NL]
+	| [id] [id] [id]; [opt comment] [NL]
+end define
+
+define assign_variable
+	[id] = [number]; [opt comment] [NL]
+	| [id] = [charlit]; [opt comment] [NL]
+	| [id] = [arithmetic]; [opt comment] [NL]
+end define
+
+define increment_or_decrement
+	[id] [SPOFF] ++ [SPON]
+	| [id] [SPOFF] -- [SPON]
+end define
+
+define arithmetic
+	[number_or_id] + [number_or_id]
+	| [number_or_id] - [number_or_id]
+	| [number_or_id] * [number_or_id]
+	| [number_or_id] / [number_or_id]
+end define
+
+% ------------------------------------------Functions------------------------------------------
 define c_function
 	[function_head] [NL]
 	{ [NL][IN]
@@ -31,17 +133,6 @@ define return_type
 	int
 end define
 
-define variable_declaration
-	[id] [list id]; [opt comment] [NL]
-	| [id] [id] [id] = [number]; [opt comment] [NL]
-	| [id] [id] [id]; [opt comment] [NL]
-end define
-
-define print_statement
-	[SPOFF] printf([SPON] [stringlit]); [opt comment] [NL]
-	| [SPOFF] printf([SPON] [stringlit],[id]); [opt comment] [NL]
-end define
-
 define return_statement
 	return [return_value]; [opt comment] [NL][EX]
 end define
@@ -50,43 +141,28 @@ define return_value
 	[number]
 end define
 
-define assign_variable
-	[id] = [number]; [opt comment] [NL]
-	| [id] = [charlit]; [opt comment] [NL]
-	| [id] = [arithmetic]; [opt comment] [NL]
+% --------------------------------------------Statements--------------------------------------------
+
+define statement
+	[variable_declaration]
+	| [scan_statement] 
+	| [condition_expression] 
+	| [assign_variable] 
+	| [print_statement]
+	| [switch_statement] 
+	| [for_loop]
+	| [while_loop]
+	| [do_while_loop]
+	| [repeat comment] [NL]
 end define
 
-define arithmetic
-	[number_or_id] + [number_or_id]
-	| [number_or_id] - [number_or_id]
-	| [number_or_id] * [number_or_id]
-	| [number_or_id] / [number_or_id]
+define print_statement
+	[SPOFF] printf([SPON] [stringlit]); [opt comment] [NL]
+	| [SPOFF] printf([SPON] [stringlit],[id]); [opt comment] [NL]
 end define
 
 define scan_statement
 	[SPOFF] scanf([stringlit], [SPON] [id]); [opt comment] [NL]
-end define
-
-tokens
-	id | "[&]\i*"
-end tokens
-
-define operator
-	'<
-	| '>
-	| '=[SPOFF]'=[SPON]
-	| '![SPOFF]'=[SPON]
-	| '<[SPOFF]'=[SPON]
-	| '>[SPOFF]'=[SPON]
-end define
-
-define condition
-	[boolean]
-	| [repeat multi_condition]
-end define
-
-define multi_condition
-	[opt '!] [opt '(] [id] [operator] [default_identifier] [opt ')] [opt and_or]
 end define
 
 define if_statement
@@ -107,24 +183,6 @@ define else_statement
 	[right_curly_bracket]
 end define
 
-define condition_expression
-	[if_statement]
-	| [if_statement] [else_statement]
-end define
-
-define left_curly_bracket
-	'{ [opt comment] [NL]
-end define
-
-define right_curly_bracket
-	'} [opt comment] [NL]
-end define
-
-define and_or
-	'&[SPOFF]'&[SPON]
-	| '|[SPOFF]'|[SPON]
-end define
-
 define switch_statement
 	switch ([id]) [opt comment] [NL]
 	[left_curly_bracket] [IN]
@@ -140,6 +198,8 @@ define switch_body
 	break; [opt comment] [NL][EX]
 end define
 
+% ---------------------------------------------Iterators------------------------------------------------
+
 define for_loop
 	for ([id] = [number_or_id];[condition];[increment_or_decrement]) [opt comment] [NL] [IN]
 	[statement] [EX]
@@ -147,24 +207,6 @@ define for_loop
 	[left_curly_bracket] [IN]
 	[repeat statement] [EX]
 	[right_curly_bracket]
-end define
-
-define increment_or_decrement
-	[id] [SPOFF] ++ [SPON]
-	| [id] [SPOFF] -- [SPON]
-end define
-
-define statement
-	[variable_declaration]
-	| [scan_statement] 
-	| [condition_expression] 
-	| [assign_variable] 
-	| [print_statement]
-	| [switch_statement] 
-	| [for_loop]
-	| [while_loop]
-	| [do_while_loop]
-	| [repeat comment] [NL]
 end define
 
 define while_loop
@@ -187,7 +229,7 @@ end define
 define do_while_loop
 	do [opt comment] [NL]
 	[opt itteration]
-	[repeat statement]
+	[statement]
 	[opt itteration]  [EX]
 	while ([condition]); [opt comment] [NL]
 	| do [opt comment] [NL]
@@ -195,32 +237,5 @@ define do_while_loop
 	[opt itteration]
 	[repeat statement] 
 	[opt itteration] [EX]
-	[right_curly_bracket]
-	while ([condition]); [opt comment] [NL]
+	} while ([condition]); [opt comment] [NL]
 end define
-
-define include_statement
-	[SPOFF]'#'include'<[id]'.[id]'> [SPON] [opt comment] [NL]
-end define
-
-define number_or_id
-	[number]
-	| [id]
-end define
-
-define default_identifier
-	[id]
-	| [number]
-	| [stringlit]
-	| [charlit]
-end define
-
-define boolean
-	true
-	| false
-end define
-
-comments
-	/* */
-	//
-end comments

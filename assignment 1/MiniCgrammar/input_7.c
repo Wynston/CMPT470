@@ -23,12 +23,12 @@ int main()
 
   k = i + j;
   //do while loop
-  do
+  do{
       printf("%d iterations remaining\n",k);
       if(k >= 300)
           break;
       k++;
-  while(true);
+  }while(true);
 
   //random char assignments
   a = 'a';
