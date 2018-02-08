@@ -57,9 +57,10 @@ define assign_variable
 end define
 
 define arithmetic
-	[id] + [number]
-	| [id] - [number]
-	| [id] * [number]
+	[number_or_id] + [number_or_id]
+    | [number_or_id] - [number_or_id]
+    | [number_or_id] * [number_or_id]
+    | [number_or_id] / [number_or_id]
 end define
 
 define scan_statement
@@ -138,7 +139,7 @@ end define
 
 define switch_body
 	case [charlit]: [NL][IN]
-	[statement]
+	[repeat statement]
 	break; [NL][EX]
 end define
 
@@ -186,7 +187,8 @@ define do_while_loop
 	do [NL]
 	[opt left_curly_bracket] [IN]	
 	[opt itteration]
-	[repeat statement] [EX]
+	[repeat statement] 
+	[opt itteration][EX]
 	[opt right_curly_bracket] 
 	while ([condition]); [NL]
 end define
