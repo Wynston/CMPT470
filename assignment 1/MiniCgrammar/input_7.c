@@ -4,8 +4,8 @@
 
 /* CMPT 470, Assignment 1
    input_7.c
-   Wynston Ramsay
-   Darvin Zhang
+   Wynston Ramsay - WCR723
+   Darvin Zhang   - DDZ369
 */
 int main()
 {
