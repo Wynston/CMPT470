@@ -86,7 +86,7 @@ define condition
 end define
 
 define multi_condition
-	[opt '!] [opt '(] [id] [operator] [number_or_id] [opt ')] [opt and_or]
+	[opt '!] [opt '(] [id] [operator] [default_identifier] [opt ')] [opt and_or]
 end define
 
 define if_statement

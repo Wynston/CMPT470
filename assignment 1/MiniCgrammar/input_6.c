@@ -3,6 +3,7 @@
 #include<time.h>
 
 /* CMPT 470, Assignment 1
+   input_6.c
    Wynston Ramsay
    Darvin Zhang
 */
