@@ -32,18 +32,18 @@ define return_type
 end define
 
 define variable_declaration
-	[id] [list id]; [NL]
-	| [id] [id] [id] = [number]; [NL]
-	| [id] [id] [id]; [NL]
+	[id] [list id]; [opt comment] [NL]
+	| [id] [id] [id] = [number]; [opt comment] [NL]
+	| [id] [id] [id]; [opt comment] [NL]
 end define
 
 define print_statement
 	[SPOFF] printf([SPON] [stringlit]); [opt comment] [NL]
-	| [SPOFF] printf([SPON] [stringlit],[id]); [NL]
+	| [SPOFF] printf([SPON] [stringlit],[id]); [opt comment] [NL]
 end define
 
 define return_statement
-	return [return_value]; [NL][EX]
+	return [return_value]; [opt comment] [NL][EX]
 end define
 
 define return_value
@@ -51,20 +51,20 @@ define return_value
 end define
 
 define assign_variable
-	[id] = [number]; [NL]
-	| [id] = [charlit]; [NL]
-	| [id] = [arithmetic]; [NL]
+	[id] = [number]; [opt comment] [NL]
+	| [id] = [charlit]; [opt comment] [NL]
+	| [id] = [arithmetic]; [opt comment] [NL]
 end define
 
 define arithmetic
 	[number_or_id] + [number_or_id]
-    | [number_or_id] - [number_or_id]
-    | [number_or_id] * [number_or_id]
-    | [number_or_id] / [number_or_id]
+	| [number_or_id] - [number_or_id]
+	| [number_or_id] * [number_or_id]
+	| [number_or_id] / [number_or_id]
 end define
 
 define scan_statement
-	[SPOFF] scanf([stringlit], [SPON] [id]);  [NL]
+	[SPOFF] scanf([stringlit], [SPON] [id]); [opt comment] [NL]
 end define
 
 tokens
@@ -72,41 +72,38 @@ tokens
 end tokens
 
 define operator
-	'>
-	| '=[SPOFF]=[SPON]
-	| '<[SPOFF]=[SPON]
-	| '<
+	'<
+	| '>
+	| '=[SPOFF]'=[SPON]
+	| '![SPOFF]'=[SPON]
+	| '<[SPOFF]'=[SPON]
+	| '>[SPOFF]'=[SPON]
 end define
 
 define condition
-	[id] [operator] [number]
-	| [opt '!][opt '(] [id] [operator] [number] [opt ')] [and_or] [opt '!][opt '(] [id] [operator] [number] [opt ')]
-	| [id] [operator] [id]
+	[boolean]
+	| [repeat multi_condition]
+end define
+
+define multi_condition
+	[opt '!] [opt '(] [id] [operator] [number_or_id] [opt ')] [opt and_or]
 end define
 
 define if_statement
 	if ([condition]) [NL] [IN]
-	[statement]
-	[repeat assign_variable]
-	[repeat print_statement]
-	[opt break_statement] [EX]
+	[statement] [EX]
 	| if ([condition]) [NL] 
 	[left_curly_bracket] [IN]
-	[repeat statement]
-	[opt break_statement] [EX]
+	[repeat statement] [EX]
 	[right_curly_bracket]
 end define
 
 define else_statement
 	else [NL] [IN]
-	[statement]
-	[repeat assign_variable]
-	[repeat print_statement]
-	[opt break_statement] [EX]
+	[statement] [EX]
 	| else [NL] 
 	[left_curly_bracket] [IN]
-	[repeat statement]
-	[opt break_statement] [EX]
+	[repeat statement] [EX]
 	[right_curly_bracket]
 end define
 
@@ -116,39 +113,40 @@ define condition_expression
 end define
 
 define left_curly_bracket
-	'{ [NL]
+	'{ [opt comment] [NL]
 end define
 
 define right_curly_bracket
-	'} [NL]
+	'} [opt comment] [NL]
 end define
 
 define and_or
-	'&[SPOFF]&[SPON]
-	| '|'|
+	'&[SPOFF]'&[SPON]
+	| '|[SPOFF]'|[SPON]
 end define
 
 define switch_statement
-	switch ([id]) [NL]
+	switch ([id]) [opt comment] [NL]
 	[left_curly_bracket] [IN]
 	[repeat switch_body]
-	default: [NL][IN]
+	default: [opt comment] [NL][IN]
 	[repeat statement] [EX] [EX]
 	[right_curly_bracket] 
 end define
 
 define switch_body
-	case [charlit]: [NL][IN]
+	case [SPOFF] [default_identifier]: [opt comment] [SPON] [NL] [IN]
 	[repeat statement]
-	break; [NL][EX]
+	break; [opt comment] [NL][EX]
 end define
 
 define for_loop
-	for([id] = [number_or_id];[condition];[increment_or_decrement]) [NL] 
-	[opt left_curly_bracket] [IN]
-	[statement] 
-	[repeat print_statement] [EX]
-	[opt right_curly_bracket]
+	for ([id] = [number_or_id];[condition];[increment_or_decrement]) [opt comment] [NL] [IN]
+	[statement] [EX]
+	| for ([id] = [number_or_id];[condition];[increment_or_decrement]) [opt comment] [NL] 
+	[left_curly_bracket] [IN]
+	[repeat statement] [EX]
+	[right_curly_bracket]
 end define
 
 define increment_or_decrement
@@ -157,48 +155,52 @@ define increment_or_decrement
 end define
 
 define statement
-	[repeat variable_declaration]
-	| [repeat scan_statement] 
-	| [repeat condition_expression] 
-	| [repeat assign_variable] 
-	| [repeat print_statement]
-	| [repeat switch_statement] 
-	| [repeat for_loop]
-	| [repeat while_loop]
-	| [repeat do_while_loop]
-	| [repeat comment]
-	| [repeat empty_line]
+	[variable_declaration]
+	| [scan_statement] 
+	| [condition_expression] 
+	| [assign_variable] 
+	| [print_statement]
+	| [switch_statement] 
+	| [for_loop]
+	| [while_loop]
+	| [do_while_loop]
+	| [repeat comment] [NL]
 end define
 
 define while_loop
-	while([condition]) [NL]
-	[opt left_curly_bracket] [IN]
-	[opt itteration]
+	while ([condition]) [opt comment] [NL] [IN]
+	[opt itteration] 
+	[statement] 
+	[opt itteration] [EX]
+	| while ([condition]) [opt comment] [NL]
+	[left_curly_bracket] [IN]
+	[opt itteration] 
 	[repeat statement] 
 	[opt itteration] [EX]
-	[opt right_curly_bracket] 
+	[right_curly_bracket] 
 end define
 
 define itteration
-	[increment_or_decrement]; [NL]
+	[increment_or_decrement]; [opt comment] [NL]
 end define
 
 define do_while_loop
-	do [NL]
-	[opt left_curly_bracket] [IN]	
+	do [opt comment] [NL]
+	[opt itteration]
+	[repeat statement]
+	[opt itteration]  [EX]
+	while ([condition]); [opt comment] [NL]
+	| do [opt comment] [NL]
+	[left_curly_bracket] [IN]	
 	[opt itteration]
 	[repeat statement] 
-	[opt itteration][EX]
-	[opt right_curly_bracket] 
-	while ([condition]); [NL]
-end define
-
-define break_statement
-	break; [NL]
+	[opt itteration] [EX]
+	[right_curly_bracket]
+	while ([condition]); [opt comment] [NL]
 end define
 
 define include_statement
-	[SPOFF]'#'include'<[id]'.[id]'> [SPON][NL]
+	[SPOFF]'#'include'<[id]'.[id]'> [SPON] [opt comment] [NL]
 end define
 
 define number_or_id
@@ -206,11 +208,19 @@ define number_or_id
 	| [id]
 end define
 
+define default_identifier
+	[id]
+	| [number]
+	| [stringlit]
+	| [charlit]
+end define
+
+define boolean
+	true
+	| false
+end define
+
 comments
 	/* */
 	//
 end comments
-
-define empty_line
-	_ [NL] [NL]
-end define 
