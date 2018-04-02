@@ -1,17 +1,123 @@
+%CMPT 470, Assignment1
+%Wynston Ramsay - WCR723
+%Darvin Zhang   - DDZ369
+%PrettyPrinter for C programs
+
+#pragma -comment
+
 % Grammar:
 define program
+	[repeat include_statement]
+	[repeat comment] [NL]
 	[c_function]
 end define
 
+% ------------------------------------Configuration Data------------------------------------
+define include_statement
+	[SPOFF]'#'include'<[id]'.[id]'> [SPON] [NL]
+end define
+
+comments
+	/* */
+	//
+end comments
+
+tokens
+	id | "[&]\i*"
+end tokens
+
+define left_curly_bracket
+	'{ [opt comment] [NL]
+end define
+
+define right_curly_bracket
+	'} [opt comment] [NL]
+end define
+
+% ---------------------------------------Logic/Conditions---------------------------------------
+define condition
+	[boolean]
+	| [repeat multi_condition]
+end define
+
+define multi_condition
+	[opt '!] [opt '(] [id] [operator] [default_identifier] [opt ')] [opt and_or]
+end define
+
+define condition_expression
+	[if_statement]
+	| [if_statement] [else_statement]
+end define
+
+define and_or
+	'&[SPOFF]'&[SPON]
+	| '|[SPOFF]'|[SPON]
+end define
+
+define operator
+	'<
+	| '>
+	| '=[SPOFF]'=[SPON]
+	| '![SPOFF]'=[SPON]
+	| '<[SPOFF]'=[SPON]
+	| '>[SPOFF]'=[SPON]
+end define
+
+% -----------------------------------------Datatypes-----------------------------------------
+
+define number_or_id
+	[number]
+	| [id]
+end define
+
+define default_identifier
+	[id]
+	| [number]
+	| [stringlit]
+	| [charlit]
+end define
+
+define boolean
+	true
+	| false
+end define
+
+% -----------------------------------------Variables-----------------------------------------
+
+define variable_declaration
+	[id] [list id]; [opt comment] [NL]
+	| [id] [id] [id] = [number]; [opt comment] [NL]
+	| [id] [id] [id]; [opt comment] [NL]
+end define
+
+define assign_variable
+	[id] = [number]; [opt comment] [NL]
+	| [id] = [charlit]; [opt comment] [NL]
+	| [id] = [arithmetic]; [opt comment] [NL]
+end define
+
+define increment_or_decrement
+	[id] [SPOFF] ++ [SPON]
+	| [id] [SPOFF] -- [SPON]
+end define
+
+define arithmetic
+	[number_or_id] + [number_or_id]
+	| [number_or_id] - [number_or_id]
+	| [number_or_id] * [number_or_id]
+	| [number_or_id] / [number_or_id]
+end define
+
+% ------------------------------------------Functions------------------------------------------
 define c_function
 	[function_head] [NL]
 	{ [NL][IN]
-	  [function_body]
+	  [repeat function_body]
 	}
 end define
 
 define function_head
-	[return_type] [function_name]()
+	[return_type] [function_name] [SPOFF]()[SPON]
 end define
 
 define function_name
@@ -19,32 +125,117 @@ define function_name
 end define
 
 define function_body
-	[repeat variable_declaration] [return_statement]
-	| [print_statement] [return_statement]
+	[repeat statement]
+	| [return_statement]
 end define
 
 define return_type
 	int
 end define
 
-define variable_declaration
-	[id] [id]; [NL]
-end define
-
-define print_statement
-	printf([stringlit]); [NL]
-end define
-
 define return_statement
-	return [return_value]; [NL][EX]
+	return [return_value]; [opt comment] [NL][EX]
 end define
 
 define return_value
 	[number]
 end define
 
-% Rules:
-%function main
-%    match [program]
-%	P[program]
-%end function
+% --------------------------------------------Statements--------------------------------------------
+
+define statement
+	[variable_declaration]
+	| [scan_statement] 
+	| [condition_expression] 
+	| [assign_variable] 
+	| [print_statement]
+	| [switch_statement] 
+	| [for_loop]
+	| [while_loop]
+	| [do_while_loop]
+	| [repeat comment] [NL]
+end define
+
+define print_statement
+	[SPOFF] printf([SPON] [stringlit]); [opt comment] [NL]
+	| [SPOFF] printf([SPON] [stringlit],[id]); [opt comment] [NL]
+end define
+
+define scan_statement
+	[SPOFF] scanf([stringlit], [SPON] [id]); [opt comment] [NL]
+end define
+
+define if_statement
+	if ([condition]) [NL] [IN]
+	[statement] [EX]
+	| if ([condition]) [NL] 
+	[left_curly_bracket] [IN]
+	[repeat statement] [EX]
+	[right_curly_bracket]
+end define
+
+define else_statement
+	else [NL] [IN]
+	[statement] [EX]
+	| else [NL] 
+	[left_curly_bracket] [IN]
+	[repeat statement] [EX]
+	[right_curly_bracket]
+end define
+
+define switch_statement
+	switch ([id]) [opt comment] [NL]
+	[left_curly_bracket] [IN]
+	[repeat switch_body]
+	default: [opt comment] [NL][IN]
+	[repeat statement] [EX] [EX]
+	[right_curly_bracket] 
+end define
+
+define switch_body
+	case [SPOFF] [default_identifier]: [opt comment] [SPON] [NL] [IN]
+	[repeat statement]
+	break; [opt comment] [NL][EX]
+end define
+
+% ---------------------------------------------Iterators------------------------------------------------
+
+define for_loop
+	for ([id] = [number_or_id];[condition];[increment_or_decrement]) [opt comment] [NL] [IN]
+	[statement] [EX]
+	| for ([id] = [number_or_id];[condition];[increment_or_decrement]) [opt comment] [NL] 
+	[left_curly_bracket] [IN]
+	[repeat statement] [EX]
+	[right_curly_bracket]
+end define
+
+define while_loop
+	while ([condition]) [opt comment] [NL] [IN]
+	[opt itteration] 
+	[statement] 
+	[opt itteration] [EX]
+	| while ([condition]) [opt comment] [NL]
+	[left_curly_bracket] [IN]
+	[opt itteration] 
+	[repeat statement] 
+	[opt itteration] [EX]
+	[right_curly_bracket] 
+end define
+
+define itteration
+	[increment_or_decrement]; [opt comment] [NL]
+end define
+
+define do_while_loop
+	do [opt comment] [NL]
+	[opt itteration]
+	[statement]
+	[opt itteration]  [EX]
+	while ([condition]); [opt comment] [NL]
+	| do [opt comment] [NL]
+	[left_curly_bracket] [IN]	
+	[opt itteration]
+	[repeat statement] 
+	[opt itteration] [EX]
+	} while ([condition]); [opt comment] [NL]
+end define
