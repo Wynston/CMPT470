@@ -26,6 +26,7 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
+import java.sql.Timestamp;	// #4
 
 /**
  * This class provides methods for logging events. In terms of functionality,
@@ -354,9 +355,11 @@ public class Log
 	//{{{ _log() method
 	private static void _log(int urgency, String source, String message)
 	{
-		String fullMessage = '[' + urgencyToString(urgency) + "] " + source
-			+ ": " + message;
-
+		// #4 - changed log method to additionally log the timestamp
+		Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
+		String fullMessage = timeStamp.toString() + ": [" + urgencyToString(urgency) + "] " 
+							+ source + ": " + message;
+		
 		try
 		{
 			log[logLineCount] = fullMessage;
