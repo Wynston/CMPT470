@@ -34,6 +34,7 @@ import org.gjt.sp.jedit.syntax.SyntaxStyle;
 import org.gjt.sp.jedit.buffer.JEditBuffer;
 import org.gjt.sp.jedit.Debug;
 import org.gjt.sp.jedit.TextUtilities;
+import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.util.StandardUtilities;
 
@@ -4795,7 +4796,39 @@ loop:		for(int i = lineNo - 1; i >= 0; i--)
 	} //}}}
 
 	//}}}
+	
+	/**
+	 * Zooms in on the text area
+	 * @author Wynston, Evan, Darvin
+	 */
+	public void zoomPlus() {
+		String FONT_SIZE = "view.fontsize";
+		String GUTTER_FONT_SIZE = "view.gutter.fontsize";
+		String CONSOLE_FONT_SIZE = "console.fontsize";
+		Integer size = jEdit.getIntegerProperty(FONT_SIZE,12) + 1;
+		jEdit.setIntegerProperty(FONT_SIZE,size);
+		jEdit.setIntegerProperty(GUTTER_FONT_SIZE,size);
+		jEdit.setIntegerProperty(CONSOLE_FONT_SIZE,size);
+		jEdit.propertiesChanged();
+		jEdit.saveSettings();
+	}
 
+	/**
+	 * Zooms out on the text area
+	 * @author Wynston, Evan, Darvin
+	 */
+	public void zoomMinus() {
+		String FONT_SIZE = "view.fontsize";
+		String GUTTER_FONT_SIZE = "view.gutter.fontsize";
+		String CONSOLE_FONT_SIZE = "console.fontsize";
+		Integer size = jEdit.getIntegerProperty(FONT_SIZE,12) - 1;
+		jEdit.setIntegerProperty(FONT_SIZE,size);
+		jEdit.setIntegerProperty(GUTTER_FONT_SIZE,size);
+		jEdit.setIntegerProperty(CONSOLE_FONT_SIZE,size);
+		jEdit.propertiesChanged();
+		jEdit.saveSettings();
+	}
+	
 	//{{{ Package-private members
 
 	static TextArea focusedComponent;
