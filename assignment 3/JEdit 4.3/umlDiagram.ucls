@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="macros.Interface" project="JEdit 4.3" file="/JEdit 4.3/macros/Interface" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="122" x="144" y="466"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="2" language="java" name="org.gjt.sp.jedit.BeanShell" project="JEdit 4.3" 
+    file="/JEdit 4.3/org/gjt/sp/jedit/BeanShell.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="639" width="290" x="363" y="-49"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="org.gjt.sp.jedit.BeanShell.CustomClassManager" project="JEdit 4.3" 
+    file="/JEdit 4.3/org/gjt/sp/jedit/BeanShell.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="171" x="363" y="630"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="org.gjt.sp.jedit.textarea.TextArea.AdjustHandler" project="JEdit 4.3" 
+    file="/JEdit 4.3/org/gjt/sp/jedit/textarea/TextArea.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="260" x="10" y="3616"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="org.gjt.sp.jedit.textarea.TextArea" project="JEdit 4.3" 
+    file="/JEdit 4.3/org/gjt/sp/jedit/textarea/TextArea.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="5607" width="261" x="715" y="-2041"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="org.gjt.sp.jedit.textarea.TextArea.RectParams" project="JEdit 4.3" 
+    file="/JEdit 4.3/org/gjt/sp/jedit/textarea/TextArea.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="131" x="310" y="3616"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="org.gjt.sp.jedit.textarea.TextArea.CaretBlinker" project="JEdit 4.3" 
+    file="/JEdit 4.3/org/gjt/sp/jedit/textarea/TextArea.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="194" x="481" y="3616"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="org.gjt.sp.jedit.textarea.TextArea.MutableCaretEvent" project="JEdit 4.3" 
+    file="/JEdit 4.3/org/gjt/sp/jedit/textarea/TextArea.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="131" x="715" y="3616"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="org.gjt.sp.jedit.textarea.TextArea.MouseWheelHandler" project="JEdit 4.3" 
+    file="/JEdit 4.3/org/gjt/sp/jedit/textarea/TextArea.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="240" x="886" y="3616"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="org.gjt.sp.jedit.textarea.TextArea.FocusHandler" project="JEdit 4.3" 
+    file="/JEdit 4.3/org/gjt/sp/jedit/textarea/TextArea.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="176" x="1166" y="3616"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <nesting id="11">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <nesting id="12">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </nesting>  
+  <nesting id="13">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
+  <nesting id="14">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </nesting>  
+  <nesting id="15">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </nesting>  
+  <association id="16">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="17" name="focusedComponent"/>      
+      <multiplicity id="18" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="19">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="10"/>  
+  </nesting>  
+  <nesting id="20">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </nesting>  
+  <association id="21">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="22" name="caretEvent"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
